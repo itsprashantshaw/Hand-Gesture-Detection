@@ -32,7 +32,7 @@ function ProjectInfo() {
               <span>Download</span>
             </button>
             <button onClick={handleOpen} class="bg-white-300 hover:bg-blue-500 text-black-800 font-bold  px-3 rounded inline-flex items-center hover:rounded-1xl" >
-            <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
+            <svg  viewBox="0 0 1024 1024" class="icon w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg"><path fill="#FFFFFF" d="M512 160c320 0 512 352 512 352S832 864 512 864 0 512 0 512s192-352 512-352zm0 64c-225.28 0-384.128 208.064-436.8 288 52.608 79.872 211.456 288 436.8 288 225.28 0 384.128-208.064 436.8-288-52.608-79.872-211.456-288-436.8-288zm0 64a224 224 0 110 448 224 224 0 010-448zm0 64a160.192 160.192 0 00-160 160c0 88.192 71.744 160 160 160s160-71.808 160-160-71.744-160-160-160z"/></svg>
               <span>View</span>
             </button>
           </div>
