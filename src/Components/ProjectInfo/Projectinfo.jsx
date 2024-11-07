@@ -1,0 +1,46 @@
+import React from 'react'
+import './projectinfo.css'
+import Newaboutus from '../AboutUs/Newaboutus'
+function ProjectInfo() {
+  const handleDownload = () => {
+    const fileId = '1e2k2GWHv-o65ZzYVqJs71dIitsoyedAm';
+    const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
+    // window.open(downloadUrl, "_blank");
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = ' ';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  const handleOpen = () => {
+    const fileId = '1e2k2GWHv-o65ZzYVqJs71dIitsoyedAm';
+    const viewUrl = `https://drive.google.com/file/d/${fileId}/view`;
+    window.open(viewUrl, "_blank");
+  
+  };
+  return (
+    <>
+      <div className='container'>
+        <div className='project-info'>
+          <h1 className='heading'>Details of Our Project</h1>
+          <p className='content'>This project is a fun and interactive Stone-Paper-Scissors game that leverages MediaPipe for real-time hand gesture recognition, React for the user interface, and Tailwind CSS for styling. The primary objective is to create a browser-based game where users can play against the computer using hand gestures.</p>
+          <span>Technologies Used: MediaPipe, React, Tailwind CSS, Javascript</span>
+          <div className='flex px-2'>
+            <button onClick={handleDownload} class="bg-white-300 hover:bg-blue-500 text-black-800 font-bold  px-3 rounded inline-flex items-center hover:rounded-1xl" >
+              <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
+              <span>Download</span>
+            </button>
+            <button onClick={handleOpen} class="bg-white-300 hover:bg-blue-500 text-black-800 font-bold  px-3 rounded inline-flex items-center hover:rounded-1xl" >
+            <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
+              <span>View</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <Newaboutus />
+    </>
+  )
+}
+
+export default ProjectInfo
