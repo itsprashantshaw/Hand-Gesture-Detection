@@ -1,4 +1,5 @@
 import React from 'react'
+import Confetti from "react-confetti-boom";
 import Camera from '../Camera/Camera.jsx';
 
 function Webcam() {
@@ -45,6 +46,7 @@ function Webcam() {
     const start = () => {
         setIsGameStarted(true)
         setIsGamePaused(false)
+        setWhoWon(null)
     }
 
     const stop = () => {
@@ -53,7 +55,7 @@ function Webcam() {
 
 
     React.useEffect(() => {
-        if (userScore == 5 || computerScore == 5) {
+        if (userScore == 1 || computerScore == 1) {
             setWhoWon(userScore > computerScore ? 'You' : 'Computer')
             setIsGameStarted(false)
             setIsGamePaused(false)
@@ -92,7 +94,13 @@ function Webcam() {
     return (
         <div>
             <div className="h-screen grid grid-cols-12 gap-8 pt-8 pb-4 px-8 bg-black-800">
-
+                {whoWon === "You" && (
+                    <Confetti
+                        mode="fall"
+                        particleCount={200}
+                        colors={["#ff577f", "#ff884b"]}
+                    />
+                )}
                 <div className="col-span-12 md:col-span-8  border-2 border-gray-400 overflow-hidden rounded-lg">
                     <div className="h-full flex justify-center items-center bg-black">
                         {
@@ -145,9 +153,9 @@ function Webcam() {
                             {
                                 logs.map((log, index) => (
                                     <div className='px-2 py-1 rounded-lg border border-white shadow-lg shadow-gray-700/40 mb-1'>
-                                    <div key={index} className="text-white-400 text-sm mb-2">
-                                        {log}
-                                    </div>
+                                        <div key={index} className="text-white-400 text-sm mb-2">
+                                            {log}
+                                        </div>
                                     </div>
                                 ))
                             }
