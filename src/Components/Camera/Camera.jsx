@@ -4,7 +4,7 @@ import { GestureRecognizer, FilesetResolver } from '@mediapipe/tasks-vision';
 // Import utility functions from gestureUtils.js
 import { drawLandmarks, countFingers, getGestureText } from './gestureUtils.js';
 // import "../Camera.css"
-const Camera = ({ onGestureChange }) => {
+const Camera = ({ onGestureChange , isRunning}) => {
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
     const gestureRecognizerRef = useRef(null);
@@ -21,8 +21,17 @@ const Camera = ({ onGestureChange }) => {
             }
         };
     }, []);
+    useEffect(() => {
+        isRunningRef.current = isRunning; // Update the isRunningRef based on the prop
+        if (isRunning) {
+            startDetection();
+        } else {
+            stopDetection();
+        }
+    }, [isRunning]);
 
     useEffect(() => {
+
         let timer;
         if (timeRemaining > 0) {
             timer = setTimeout(() => {
@@ -75,6 +84,10 @@ const Camera = ({ onGestureChange }) => {
         const ctx = canvas.getContext('2d');
 
         if (!video || !canvas || !gestureRecognizerRef.current) return;
+        if (video.videoWidth === 0 || video.videoHeight === 0) {
+            console.warn("Invalid video dimensions.");
+            return;
+          }
 
         if (isRunningRef.current) {
             let startTimeMs = performance.now();
@@ -97,13 +110,13 @@ const Camera = ({ onGestureChange }) => {
                 drawLandmarks(ctx, landmarks);
 
                 // 2. Count fingers using countFingers from gestureUtils
-                const fingerCount = countFingers(landmarks);
+                // const fingerCount = countFingers(landmarks);
 
                 // 3. Get gesture text using getGestureText from gestureUtils
                 const gestureText = getGestureText(gesture.categoryName);
-                console.log(gestureText);
+                // console.log(gestureText);
 
-                onGestureChange(gestureText);
+                // onGestureChange(gestureText);
 
                 // Display information
                 ctx.fillStyle = 'white';
@@ -112,10 +125,11 @@ const Camera = ({ onGestureChange }) => {
                 ctx.font = '16px Arial';
                 ctx.fillText(`Hand: ${handedness.categoryName}`, 10, 20);
                 ctx.fillText(`Gesture: ${gestureText}`, 10, 40);
-                ctx.fillText(`Fingers up: ${fingerCount}`, 10, 60);
+                // ctx.fillText(`Fingers up: ${fingerCount}`, 10, 60);
                 // ctx.fillText(`TimeReamaining: ${timeRemaining}`, 10, 80)
                 if (['closed_fist', 'open_palm', 'victory'].includes(gesture.categoryName.toLowerCase())) {
-
+                    const detectedGestureText = getGestureText(gesture.categoryName);
+                    onGestureChange(detectedGestureText);
                     stopDetection();
                     setTimeRemaining(5);
                 }

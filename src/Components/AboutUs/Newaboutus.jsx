@@ -9,21 +9,21 @@ function Newaboutus() {
         </div>
         <div className='card'>
             <div className='box'>
-                <img src={parama}/>
-                <h3>Parama Majumdar</h3>
-                <p>Roll:16971023024</p>
+                <img src={kushankur}/>
+                <h3>Kushankur Dutta</h3>
+                <p>Roll:16971023021</p>
                 <span>MCA</span>
             </div>
             <div className='box'>
                 <img src={shubham}/>
-                <h3>Shubham Ghosh</h3>
-                <p>Roll:16971023055</p>
+                <h3>Shubham Das</h3>
+                <p>Roll:16971023059</p>
                 <span>MCA</span>
             </div>
             <div className='box'>
-                <img src={kushankur}/>
-                <h3>Kushankur Dutta</h3>
-                <p>Roll:16971023021</p>
+                <img src={parama}/>
+                <h3>Parama Majumdar</h3>
+                <p>Roll:16971023024</p>
                 <span>MCA</span>
             </div>
             <div className='box'>
