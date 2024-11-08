@@ -77,11 +77,11 @@ h2{
     z-index: 1;
 }
 
-.card .box:nth-child(1)img{
+.card .box:nth-child(3)img{
     box-shadow: 0 0 0 0 #433878;
     background: #433878;
 }
-.card .box:nth-child(1):hover img{
+.card .box:nth-child(3):hover img{
     box-shadow: 0 0 0 480px #433878;
 }
 .card .box:nth-child(2)img{
@@ -91,11 +91,11 @@ h2{
 .card .box:nth-child(2):hover img{
     box-shadow: 0 0 0 480px #FF4545;
 }
-.card .box:nth-child(3)img{
+.card .box:nth-child(1)img{
     box-shadow: 0 0 0 0 #859F3D;
     background: #859F3D;
 }
-.card .box:nth-child(3):hover img{
+.card .box:nth-child(1):hover img{
     box-shadow: 0 0 0 480px #859F3D;
 }
 .card .box:nth-child(4)img{
