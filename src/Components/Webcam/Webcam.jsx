@@ -133,7 +133,7 @@ function Webcam() {
           />
         )}
         <div className="col-span-12 md:col-span-8  border-2 border-gray-400 overflow-hidden rounded-lg">
-          <div className="h-full flex justify-center items-center bg-black">
+          <div className="h-full flex justify-center items-center bg-gradient-to-t from-black to-slate-800">
             {isGameStarted === true && isGamePaused === false ? (
               <Camera
                 onGestureChange={setGestureText}
