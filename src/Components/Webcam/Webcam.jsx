@@ -118,7 +118,7 @@ function Webcam() {
       <div className=" w-full flex justify-end px-12">
         {selector ? (
           <h3 className="font-bold text-1xl">
-            Total Round Left:{length - totalScore}
+            Total Round Left: {length - totalScore}
           </h3>
         ) : (
           <h3 className="font-bold text-1xl">Click on Start Button</h3>
@@ -216,7 +216,7 @@ function Webcam() {
               ? "😔Computer won better luck next time!!"
               : whoWon == "You"
               ? "🥳Congratulations You Won!!"
-              : "Game is Draw"}
+              : "🤝 Game is Draw"}
           </h3>
           <p className="mt-4 mb-8">
             Do you want to challange the Computer again?

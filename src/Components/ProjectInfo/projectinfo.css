@@ -1,36 +1,38 @@
-.container{
-    width: 100%;
-    display: flex;
-    /* flex-direction: column; */
-    justify-content: center;
+.container {
+  width: 100%;
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
 }
-.project-info{
-    width: 70%;
-    padding: 90px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    border-radius: 18px;
-    transition: box-shadow 0.4s ease;
+.project-info {
+  width: 70%;
+  padding: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 18px;
+  transition: box-shadow 0.4s ease;
 }
 .project-info:hover {
-    box-shadow: 0px 4px 8px rgba(248, 246, 246, 0.2);
+  box-shadow: 0px 4px 8px rgba(248, 246, 246, 0.2);
 }
-.project-info .heading{
-    font-size: 58px;
-    padding: 5px;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    /* border-right: 2px solid white; */
-    /* animation: typing 3s steps(22) forwards infinite, deleting 3s steps(22) 3s forwards infinite; */
-    animation: typing-deleting 6s steps(22) infinite;
-    /* animation: typing-deleting 6s steps(22) infinite, cursor-blink 0.5s step-end infinite; */
+.project-info .heading {
+  font-size: 58px;
+  padding: 5px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  /* border-right: 2px solid white; */
+  /* animation: typing 3s steps(22) forwards infinite, deleting 3s steps(22) 3s forwards infinite; */
+  animation: typing-deleting 6s steps(22) infinite;
+  /* animation: typing-deleting 6s steps(22) infinite, cursor-blink 0.5s step-end infinite; */
 }
-@keyframes cursor{
-    50%{border-color:white;}
+@keyframes cursor {
+  50% {
+    border-color: white;
+  }
 }
 /* @keyframes typing{
     from {width: 0;}
@@ -44,49 +46,60 @@
     50% { border-color:transparent ; }
 } */
 @keyframes typing-deleting {
-    0% { width: 0; }
-    50% { width: 100%; } /* Complete typing halfway through */
-    100% { width: 0; } /* Delete all characters by the end */
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 100%;
+  } /* Complete typing halfway through */
+  100% {
+    width: 0;
+  } /* Delete all characters by the end */
 }
-.project-info .content{
-    padding: 5px;
-    font-size: 15px;
+.project-info .content {
+  padding: 5px;
+  font-size: 15px;
 }
-.project-info span{
-    padding: 15px;
-    font-size: 20px;
+.project-info span {
+  padding: 15px;
+  font-size: 20px;
 }
 
+@media (min-width: 1024px) {
+  .container {
+    max-width: 100%;
+  }
+}
 /* Media Query: For smaller screens (tablets and below) */
 @media screen and (max-width: 768px) {
-    .project-info {
-        width: 90%;
-        padding: 40px;
-    }
-    .project-info .heading {
-        font-size: 30px;
-    }
-    .project-info .content {
-        font-size: 14px;
-    }
-    .project-info span {
-        font-size: 18px;
-    }
+  .project-info {
+    width: 90%;
+    padding: 40px;
+  }
+  .project-info .heading {
+    font-size: 30px;
+  }
+  .project-info .content {
+    font-size: 14px;
+  }
+  .project-info span {
+    font-size: 18px;
+  }
 }
 
 /* Media Query: For mobile screens */
 @media screen and (max-width: 480px) {
-    .project-info {
-        width: 100%;
-        padding: 20px;
-    }
-    .project-info .heading {
-        font-size: 28px;
-    }
-    .project-info .content {
-        font-size: 13px;
-    }
-    .project-info span {
-        font-size: 16px;
-    }
+  .project-info {
+    width: 100%;
+    padding: 20px;
+  }
+  .project-info .heading {
+    font-size: 28px;
+  }
+  .project-info .content {
+    font-size: 13px;
+  }
+  .project-info span {
+    font-size: 16px;
+  }
 }
