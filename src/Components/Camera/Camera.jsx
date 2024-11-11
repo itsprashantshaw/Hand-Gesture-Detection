@@ -9,7 +9,8 @@ const Camera = ({ onGestureChange , isRunning}) => {
     const canvasRef = useRef(null);
     const gestureRecognizerRef = useRef(null);
     const isRunningRef = useRef(false);
-    const [timeRemaining, setTimeRemaining] = useState(5);
+    // const [timeRemaining, setTimeRemaining] = useState(5);
+    const timeoutRef = useRef(null);
 
     useEffect(() => {
         initializeGestureRecognizer();
@@ -18,6 +19,9 @@ const Camera = ({ onGestureChange , isRunning}) => {
         return () => {
             if (gestureRecognizerRef.current) {
                 gestureRecognizerRef.current.close();
+            }
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
             }
         };
     }, []);
@@ -30,19 +34,19 @@ const Camera = ({ onGestureChange , isRunning}) => {
         }
     }, [isRunning]);
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        let timer;
-        if (timeRemaining > 0) {
-            timer = setTimeout(() => {
-                setTimeRemaining(timeRemaining - 1);
-            }, 1000)
-        }
-        else {
-            startDetection();
-        }
-        return () => clearTimeout(timer);
-    }, [timeRemaining])
+    //     let timer;
+    //     if (timeRemaining > 0) {
+    //         timer = setTimeout(() => {
+    //             setTimeRemaining(timeRemaining - 1);
+    //         }, 1000)
+    //     }
+    //     else {
+    //         startDetection();
+    //     }
+    //     return () => clearTimeout(timer);
+    // }, [timeRemaining])
 
 
 
@@ -78,6 +82,39 @@ const Camera = ({ onGestureChange , isRunning}) => {
         }
     };
 
+    const pauseAndResume = () => {
+        stopDetection();
+    
+        // Display countdown on canvas
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext("2d");
+        let countdown = 5;
+    
+        const updateCountdown = () => {
+          ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = "white";
+          ctx.font = "48px Arial";
+          ctx.textAlign = "center";
+          ctx.fillText(
+            `Paused: ${countdown}s`,
+            canvas.width / 2,
+            canvas.height / 2
+          );
+          countdown--;
+    
+          if (countdown >= 0) {
+            setTimeout(updateCountdown, 1000);
+          } else {
+            startDetection();
+            predictWebcam();
+          }
+        };
+    
+        updateCountdown();
+      };
+    
+
     const predictWebcam = async () => {
         const video = videoRef.current;
         const canvas = canvasRef.current;
@@ -104,34 +141,23 @@ const Camera = ({ onGestureChange , isRunning}) => {
                 const handedness = gestureResult.handedness[0][0];
                 const landmarks = gestureResult.landmarks[0];
 
-                // Using imported utility functions:
-
-                // 1. Draw hand landmarks using drawLandmarks from gestureUtils
                 drawLandmarks(ctx, landmarks);
-
-                // 2. Count fingers using countFingers from gestureUtils
-                // const fingerCount = countFingers(landmarks);
-
-                // 3. Get gesture text using getGestureText from gestureUtils
                 const gestureText = getGestureText(gesture.categoryName);
-                // console.log(gestureText);
-
-                // onGestureChange(gestureText);
-
-                // Display information
+                
+                
                 ctx.fillStyle = 'white';
                 ctx.fillRect(0, 0, 220, 60);
                 ctx.fillStyle = 'black';
                 ctx.font = '16px Arial';
                 ctx.fillText(`Hand: ${handedness.categoryName}`, 10, 20);
                 ctx.fillText(`Gesture: ${gestureText}`, 10, 40);
-                // ctx.fillText(`Fingers up: ${fingerCount}`, 10, 60);
-                // ctx.fillText(`TimeReamaining: ${timeRemaining}`, 10, 80)
+               
                 if (['closed_fist', 'open_palm', 'victory'].includes(gesture.categoryName.toLowerCase())) {
                     const detectedGestureText = getGestureText(gesture.categoryName);
                     onGestureChange(detectedGestureText);
-                    stopDetection();
-                    setTimeRemaining(5);
+                    pauseAndResume();
+                    // stopDetection();
+                    // setTimeRemaining(5);
                 }
 
             }
@@ -142,14 +168,12 @@ const Camera = ({ onGestureChange , isRunning}) => {
 
     const startDetection = () => {
         isRunningRef.current = true;
-        // isPausedRef.current=true;
-        setTimeRemaining(5);
+        // setTimeRemaining(5);
         predictWebcam();
     };
 
     const stopDetection = () => {
         isRunningRef.current = false;
-        // isPausedRef.current=true;
     };
 
     return (

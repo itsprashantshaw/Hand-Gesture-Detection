@@ -124,7 +124,7 @@ function Webcam() {
           <h3 className="font-bold text-1xl">Click on Start Button</h3>
         )}
       </div>
-      <div className="h-screen w-full grid grid-cols-12 gap-8 pt-8 pb-4 px-8 bg-black-800">
+      <div className="h-screen w-full grid grid-cols-12 gap-8 pt-4 pb-4 px-8 bg-black-800">
         {whoWon === "You" && (
           <Confetti
             mode="fall"
