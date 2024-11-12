@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useId } from "react";
+import { v4 as uuidv4 } from "uuid";
 import Confetti from "react-confetti-boom";
 import Camera from "../Camera/Camera.jsx";
 
@@ -18,6 +19,7 @@ function Webcam() {
   const [totalScore, setTotalScore] = React.useState(0);
   const [selector, setSelector] = React.useState(false);
   const [length, setLength] = React.useState(1);
+  const componentId = useId();
 
   React.useEffect(() => {
     if (gestureText != null) {
@@ -110,7 +112,10 @@ function Webcam() {
     }
     setLogs((oldLogs) => [
       ...oldLogs,
-      `Player choosed ${userChoice} & Computer choosed ${computerChoice}`,
+      {
+        id: uuidv4(),
+        text: `Player choosed ${userChoice} & Computer choosed ${computerChoice}`,
+      },
     ]);
   };
 
@@ -198,10 +203,10 @@ function Webcam() {
 
           <div className="h-full p-2 ">
             <div className="h-full max-h-[300px] p-4 overflow-y-auto scrollbar-hide">
-              {logs.map((log, index) => (
+              {logs.map((log) => (
                 <div className="px-2 py-1 rounded-lg border border-white shadow-lg shadow-gray-700/40 mb-1">
-                  <div key={index} className="text-white-400 text-sm mb-2">
-                    {log}
+                  <div key={log.id} className="text-white-400 text-sm mb-2">
+                    {log.text}
                   </div>
                 </div>
               ))}

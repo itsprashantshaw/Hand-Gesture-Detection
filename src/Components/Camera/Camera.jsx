@@ -102,6 +102,10 @@ const Camera = ({ onGestureChange, isRunning }) => {
   const predictWebcam = async () => {
     const video = videoRef.current;
     const canvas = canvasRef.current;
+    if(!canvas){
+      console.warn("Canvas not found");
+      return;
+    }
     const ctx = canvas.getContext("2d");
     if (!ctx) {
       console.error("Canvas context is not availabe");
