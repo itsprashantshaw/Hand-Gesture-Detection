@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import { GestureRecognizer, FilesetResolver } from "@mediapipe/tasks-vision";
-import { drawLandmarks, countFingers, getGestureText } from "./gestureUtils.js";
+import { drawLandmarks, getGestureText } from "./gestureUtils.js";
 
 const Camera = ({ onGestureChange, isRunning }) => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const gestureRecognizerRef = useRef(null);
   const isRunningRef = useRef(false);
-  // const [timeRemaining, setTimeRemaining] = useState(5);
   const timeoutRef = useRef(null);
 
   useEffect(() => {
@@ -32,7 +31,7 @@ const Camera = ({ onGestureChange, isRunning }) => {
     }
   }, [isRunning]);
 
-  const initializeGestureRecognizer = useCallback(async () => {
+  const initializeGestureRecognizer = async () => {
     const vision = await FilesetResolver.forVisionTasks(
       "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
     );
@@ -47,7 +46,7 @@ const Camera = ({ onGestureChange, isRunning }) => {
         runningMode: "VIDEO",
       }
     );
-  }, []);
+  };
 
   const setupCamera = async () => {
     const constraints = {
@@ -100,7 +99,7 @@ const Camera = ({ onGestureChange, isRunning }) => {
     updateCountdown();
   };
 
-  const predictWebcam = useCallback(async () => {
+  const predictWebcam = async () => {
     const video = videoRef.current;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -108,8 +107,6 @@ const Camera = ({ onGestureChange, isRunning }) => {
       console.error("Canvas context is not availabe");
       return;
     }
-    // ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     if (!video || !canvas || !gestureRecognizerRef.current) return;
     if (video.videoWidth === 0 || video.videoHeight === 0) {
       console.warn("Invalid video dimensions.");
@@ -136,9 +133,6 @@ const Camera = ({ onGestureChange, isRunning }) => {
 
         drawLandmarks(ctx, landmarks);
         const gestureText = getGestureText(gesture.categoryName);
-
-        // ctx.fillStyle = "white";
-        // ctx.fillRect(0, 0, 220, 60);
         ctx.fillStyle = "black";
         ctx.font = "16px Arial";
         ctx.fillText(`Hand: ${handedness.categoryName}`, 25, 20);
@@ -152,18 +146,15 @@ const Camera = ({ onGestureChange, isRunning }) => {
           const detectedGestureText = getGestureText(gesture.categoryName);
           onGestureChange(detectedGestureText);
           pauseAndResume();
-          // stopDetection();
-          // setTimeRemaining(5);
         }
       }
 
       requestAnimationFrame(predictWebcam);
     }
-  }, []);
+  };
 
   const startDetection = () => {
     isRunningRef.current = true;
-    // setTimeRemaining(5);
     predictWebcam();
   };
 
