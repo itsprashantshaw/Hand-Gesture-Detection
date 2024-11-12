@@ -34,6 +34,7 @@ function Webcam() {
         default:
           break;
       }
+      setGestureText(null);
     }
   }, [gestureText]);
 
